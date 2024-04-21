@@ -9,7 +9,7 @@ import {
   ParseUUIDPipe,
   Query,
 } from '@nestjs/common';
-import { CreateOrderDto } from './dto/create-order.dto';
+import { CreateOrderDto } from './dto';
 import { ORDERS_SERVICE } from '../config';
 import { ClientProxy, RpcException } from '@nestjs/microservices';
 import { firstValueFrom } from 'rxjs';
@@ -21,10 +21,9 @@ export class OrdersController {
   constructor(
     @Inject(ORDERS_SERVICE) private readonly ordersClient: ClientProxy,
   ) {}
-
   @Post()
   create(@Body() createOrderDto: CreateOrderDto) {
-    return this.ordersClient.send('createOrdesr', createOrderDto);
+    return this.ordersClient.send('createOrder', createOrderDto);
   }
 
   @Get()
